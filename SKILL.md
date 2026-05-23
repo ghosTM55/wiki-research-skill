@@ -144,23 +144,16 @@ Prefer this structure:
 
 If another research skill is active, keep this output compact so it can be used as input to that workflow.
 
-## Wikidata Mental Model
+## Using Wikidata
 
-Wikidata is closer to a public structured knowledge graph than to a normal article wiki. Think of it as:
+Use Wikidata when the task benefits from structured public data rather than narrative explanation:
 
-```text
-entity -> property -> value
-The Matrix -> director -> The Wachowskis
-The Matrix -> publication date -> 1999
-The Matrix -> genre -> science fiction film
-```
+- entity disambiguation and canonical IDs;
+- aliases and multilingual names;
+- typed relationships such as creator, director, publisher, parent organization, part of series, location, and date;
+- timeline or relationship-graph candidates.
 
-Compared with an Obsidian graph:
-
-- Obsidian links are personal/freeform and often imply relationships through context.
-- Wikidata links are public, typed relationships with properties, qualifiers, aliases, and references.
-
-Use Wikidata for structure and disambiguation. Use article/wiki sources for explanation and narrative.
+Treat Wikidata results as structured claims. Check qualifiers, dates, ranks, and references when the claim matters. Use article/wiki sources for explanation, narrative context, and domain nuance.
 
 ## Common Pitfalls
 
