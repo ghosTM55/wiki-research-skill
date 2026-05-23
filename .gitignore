@@ -1,0 +1,16 @@
+# OS/editor files
+.DS_Store
+*.swp
+*.swo
+
+# Local/private config
+.env
+*.local
+*.local.*
+config.local.*
+
+# Agent/runtime scratch
+.hermes/
+.codex/
+.cache/
+tmp/
