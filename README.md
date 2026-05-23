@@ -2,28 +2,33 @@
 
 [中文](README.md) | [English](README.en.md)
 
-面向 AI agent 的 wiki 信息源路由 Skill：帮助 agent 在研究任务中判断何时使用 Wikipedia、Wikidata、官方/项目 Wiki、Fandom/社区 Wiki、MediaWiki 站点，以及何时切换到当前 web、官方文档或深度研究流程。
+为 AI agent 的普通搜索和研究任务补充 wiki 类信息源。安装后，agent 应在相关场景中自动考虑 Wikipedia、Wikidata、官方/项目 Wiki、Fandom/社区 Wiki、MediaWiki 站点等来源，并在不相关时跳过。
 
 ## 特性
 
 - 区分 Wikipedia、Wikidata、官方 Wiki、项目 Wiki、Fandom/社区 Wiki 与当前资料的使用边界。
 - 适合娱乐/IP/lore、项目知识、实体关系、时间线、跨语言叙事差异等研究场景。
-- 可作为已有 deep research、market research、competitive intelligence、KBS/Obsidian ingest 等技能的前置 source-routing layer。
+- 可嵌入已有 deep research、market research、competitive intelligence、KBS/Obsidian 工作流；不要求用户单独写复杂 prompt。
 - 不绑定任何 MCP server 或外部依赖；可在 Hermes、Codex、Claude Code 等支持 `SKILL.md` 的 agent 中使用。
 
 ## 快速使用
 
-在你的 AI agent 中安装或引用这个 Skill 后，可以这样提示：
+安装后，用户不需要专门说“使用 wiki-research”。正常提出搜索或研究请求即可，例如：
 
 ```text
-Use wiki-research to establish the wiki-source baseline for this topic: relevant Wikipedia/Wikidata pages, official/project wikis, Fandom/community wikis, entity aliases, lore/canon structure, relationship graph candidates, and reliability notes. Then continue with my existing deep research workflow for current sources and analysis.
+帮我研究一下《赛博朋克 2077》的世界观、主要势力和角色关系。
 ```
-
-中文提示：
 
 ```text
-使用 wiki-research 为这个主题建立 wiki 信息源基线：相关 Wikipedia/Wikidata 页面、官方/项目 Wiki、Fandom/社区 Wiki、实体别名、lore/canon 结构、关系图谱候选和可靠性说明。之后继续使用我已有的深度研究流程处理当前资料和分析判断。
+查一下这个开源项目的发展背景、核心维护者和相关项目。
 ```
+
+Agent 应根据任务自动判断是否需要调用 `wiki-research`：
+
+- 相关时：把 Wikipedia、Wikidata、官方/项目 Wiki、Fandom/社区 Wiki 等来源纳入搜索。
+- 有价值时：整理别名、实体关系、作品/角色/组织关系、lore/canon、时间线或社区分类。
+- 输出时：简单标明信息来自官方、百科、社区维护来源，或仍需进一步验证。
+- 不相关时：跳过，不打扰主研究流程。
 
 ## 适用场景
 
@@ -32,7 +37,7 @@ Use wiki-research to establish the wiki-source baseline for this topic: relevant
 - 查找某个领域是否存在官方 Wiki、项目 Wiki、Fandom、wiki.gg、Miraheze、MediaWiki 站点或其他社区知识库。
 - 整理实体关系、别名、多语言名称、时间线、知识图谱候选。
 - 比较不同语言 Wikipedia 或不同社区 Wiki 对同一主题的叙事差异。
-- 在深度研究前建立术语、实体、来源地图和可靠性边界。
+- 在普通搜索或深度研究中补充术语、实体、相关页面和可靠性边界。
 
 ## 不适用场景
 
@@ -47,28 +52,13 @@ Use wiki-research to establish the wiki-source baseline for this topic: relevant
 
 ## 与已有研究 Skill 配合
 
-`wiki-research` 不应该替代已有研究 Skill。它的职责是前置路由和信息源分层。
+`wiki-research` 不是一个需要用户手动启动的完整研究流程。它更像一条自动触发的搜索增强规则：当研究对象适合查 wiki 类资料时，agent 使用它补充来源和关系信息；当问题主要依赖新闻、市场数据、政策、价格、API 或官方文档时，agent 只把 wiki 当背景资料，或直接跳过。
+
+推荐行为：
 
 ```text
-wiki-research 负责：
-- 判断是否需要 wiki-style sources
-- 选择 Wikipedia / Wikidata / 官方 Wiki / Fandom / 社区 Wiki
-- 提取实体、别名、lore/canon 结构、关系图谱候选
-- 标注来源可靠性和需要进一步验证的 claims
-
-主研究 Skill 负责：
-- 问题拆解
-- 广泛搜索
-- 证据评估
-- 综合分析
-- 报告结构
-- KBS/Obsidian 写入
-```
-
-推荐组合方式：
-
-```text
-First use wiki-research as a source-routing step. Keep the output compact and structured. Then pass the wiki-source baseline into the active deep research skill.
+普通研究/搜索流程继续负责问题拆解、搜索、证据判断、综合分析和输出。
+wiki-research 只在相关时补充 wiki 类来源、别名、实体关系、lore/canon、时间线和可靠性提醒。
 ```
 
 ## 来源分层
@@ -81,7 +71,13 @@ First use wiki-research as a source-routing step. Keep the output compact and st
 | Fandom/社区 Wiki | 娱乐/IP lore、角色、世界观、粉丝分类、长尾细节 | 区分官方 canon、社区整理、粉丝推测和过期内容 |
 | 当前 web/news/reports | 最近变化、商业状态、市场数据、政策、价格、产品更新 | 不属于 wiki-research 的主职责，通常交给深度研究流程 |
 
-## 安装
+## 安装与配置
+
+### 推荐方式：安装后让 agent 自动匹配
+
+把 `SKILL.md` 安装到 agent 的全局或项目级 skills 目录。对于支持自动技能匹配的 agent，用户正常提问即可，不需要在每次 prompt 里写“使用 wiki-research”。
+
+项目级安装更适合团队或单个研究项目；全局安装适合经常做 IP、lore、实体关系、项目背景研究的用户。
 
 ### Hermes Agent
 
@@ -97,7 +93,7 @@ hermes skills install https://github.com/ghosTM55/wiki-research-skill
 hermes skills install https://raw.githubusercontent.com/ghosTM55/wiki-research-skill/main/SKILL.md --name wiki-research
 ```
 
-安装后开启新会话，并按需加载：
+安装后开启新会话。通常不需要手动输入 `/skill wiki-research`；只有在调试、演示或想强制使用时才需要显式加载：
 
 ```text
 /skill wiki-research
@@ -105,15 +101,13 @@ hermes skills install https://raw.githubusercontent.com/ghosTM55/wiki-research-s
 
 ### Codex / Claude Code / 其他 Agent Skills 工具
 
-把 `SKILL.md` 安装到对应 agent 的全局或项目级 skills 目录。推荐项目级安装，避免全局过度触发。
+把 `SKILL.md` 放到对应 agent 的全局或项目级 skills 目录。不同工具的自动触发机制不同：有的根据 skill description 自动匹配；有的需要在项目规则文件中补一句，例如“搜索/研究时可自动使用 wiki-research 补充 wiki 类来源”。
 
 常见项目级结构：
 
 ```text
 .agents/skills/wiki-research/SKILL.md
 ```
-
-不同 agent 的安装命令和目录不同，请以对应工具文档为准。
 
 ### 手动安装
 
@@ -123,24 +117,24 @@ curl -L https://raw.githubusercontent.com/ghosTM55/wiki-research-skill/main/SKIL
   -o ~/.hermes/skills/research/wiki-research/SKILL.md
 ```
 
-## 推荐 Prompt
+## 使用示例
 
-### 娱乐/IP/lore
+### 普通用户请求
 
 ```text
-Use wiki-research to map the wiki-source baseline for this franchise: official wiki, Fandom/community wiki, Wikipedia/Wikidata, major lore pages, canon status, character/faction/timeline structure, and reliability caveats. Do not do full market research yet.
+帮我研究一下这个 IP 的世界观、角色关系和社区讨论里常见的分类。
 ```
 
-### 配合深度研究
-
 ```text
-Before running the deep research skill, use wiki-research as a narrow routing step: identify useful wiki-style sources, entity aliases, relationship graph candidates, and claims that must be verified with current/primary sources.
+查一下这个项目的背景、核心概念、相关组织和历史脉络。
 ```
 
-### 当前事实边界
+### Agent 应自动补充的内容
 
 ```text
-Use wiki-research only for stable background and entity/lore mapping. For current product status, pricing, policy, market size, revenue, or funding, explicitly switch to current web/official sources.
+如果相关，自动查找 Wikipedia、Wikidata、官方/项目 Wiki、Fandom/社区 Wiki；
+整理有用的别名、实体关系、lore/canon、时间线、社区分类和来源可靠性。
+如果不相关，跳过 wiki 来源。
 ```
 
 ## 仓库结构

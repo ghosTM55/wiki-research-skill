@@ -2,22 +2,33 @@
 
 [中文](README.md) | [English](README.en.md)
 
-A wiki source-routing skill for AI agents. It helps an agent decide when to use Wikipedia, Wikidata, official/project wikis, Fandom/community wikis, MediaWiki sites, and when to switch to current web sources, official documentation, or a broader deep research workflow.
+A lightweight wiki-source enhancement skill for normal AI-agent search and research. Once installed, the agent should automatically consider Wikipedia, Wikidata, official/project wikis, Fandom/community wikis, MediaWiki sites, and similar sources when relevant, and skip them when they are not useful.
 
 ## Features
 
 - Separates the roles of Wikipedia, Wikidata, official wikis, project wikis, Fandom/community wikis, and current sources.
 - Useful for entertainment/IP/lore research, project knowledge, entity relationships, timelines, and cross-language narrative differences.
-- Designed to work as a source-routing layer before existing deep research, market research, competitive intelligence, or KBS/Obsidian ingest skills.
+- Designed to fit into existing deep research, market research, competitive intelligence, or KBS/Obsidian workflows without requiring users to write complex prompts.
 - No MCP server or external dependency required; usable in Hermes, Codex, Claude Code, and other agents that support `SKILL.md`.
 
 ## Quick use
 
-After installing or referencing this skill in your AI agent, prompt it like this:
+After installation, users should not need to say “use wiki-research” in every prompt. They can ask normal research questions, for example:
 
 ```text
-Use wiki-research to establish the wiki-source baseline for this topic: relevant Wikipedia/Wikidata pages, official/project wikis, Fandom/community wikis, entity aliases, lore/canon structure, relationship graph candidates, and reliability notes. Then continue with my existing deep research workflow for current sources and analysis.
+Research the worldbuilding, main factions, and character relationships in Cyberpunk 2077.
 ```
+
+```text
+Look up the background, maintainers, and related projects for this open-source project.
+```
+
+The agent should decide automatically whether `wiki-research` is useful:
+
+- If relevant, include Wikipedia, Wikidata, official/project wikis, Fandom/community wikis, and similar sources in the search.
+- When useful, extract aliases, entity relationships, work/character/organization links, lore/canon, timelines, or community taxonomies.
+- In the answer, briefly label whether information comes from official, encyclopedia, community-maintained, or still-to-be-verified sources.
+- If not relevant, skip the skill and continue with the main research workflow.
 
 ## When to use
 
@@ -26,7 +37,7 @@ Use wiki-research to establish the wiki-source baseline for this topic: relevant
 - Finding official wikis, project wikis, Fandom, wiki.gg, Miraheze, MediaWiki sites, or other community-maintained knowledge bases.
 - Mapping entity relationships, aliases, multilingual names, timelines, and knowledge graph candidates.
 - Comparing narrative differences across language editions or community wikis.
-- Establishing terminology, entities, source maps, and reliability boundaries before deep research.
+- Adding terminology, entities, related pages, and reliability boundaries inside ordinary search or deep research.
 
 ## When not to use as the main source
 
@@ -41,28 +52,13 @@ For those tasks, wiki sources are useful for background, terminology, and disamb
 
 ## Working with existing research skills
 
-`wiki-research` should not replace an existing research skill. It is a pre-research routing and source-layering skill.
+`wiki-research` is not a full research workflow that users need to start manually. It is an automatic search enhancement rule: when the research target benefits from wiki-style sources, the agent uses it to add sources and relationship information; when the question mainly depends on news, market data, policy, pricing, API behavior, or official documentation, the agent treats wiki sources as background or skips them.
+
+Recommended behavior:
 
 ```text
-wiki-research owns:
-- deciding whether wiki-style sources are useful
-- choosing Wikipedia / Wikidata / official wiki / Fandom / community wiki
-- extracting entities, aliases, lore/canon structure, and relationship candidates
-- labeling source reliability and claims that need further verification
-
-The main research skill owns:
-- decomposition
-- broad search
-- evidence evaluation
-- synthesis
-- report structure
-- KBS/Obsidian persistence
-```
-
-Recommended coordination pattern:
-
-```text
-First use wiki-research as a source-routing step. Keep the output compact and structured. Then pass the wiki-source baseline into the active deep research skill.
+The main research/search workflow still owns decomposition, search, evidence judgment, synthesis, and final output.
+wiki-research only adds wiki-style sources, aliases, entity relationships, lore/canon, timelines, and reliability notes when relevant.
 ```
 
 ## Source layers
@@ -75,7 +71,13 @@ First use wiki-research as a source-routing step. Keep the output compact and st
 | Fandom/community wiki | Entertainment/IP lore, characters, worldbuilding, fan taxonomy, long-tail details | Distinguish official canon, community consensus, speculation, and outdated pages |
 | Current web/news/reports | Recent changes, business status, market data, policy, pricing, product updates | Usually belongs to the broader research workflow, not this skill |
 
-## Installation
+## Installation and configuration
+
+### Recommended: install once, let the agent auto-match
+
+Install `SKILL.md` into the agent’s global or project-level skills directory. For agents that support automatic skill matching, users can ask normal research questions; they do not need to mention `wiki-research` in every prompt.
+
+Project-level installation is best for a specific team or research project. Global installation is useful for users who often research IP, lore, entity relationships, project background, or community-maintained knowledge.
 
 ### Hermes Agent
 
@@ -91,7 +93,7 @@ If your Hermes version needs a direct `SKILL.md` URL:
 hermes skills install https://raw.githubusercontent.com/ghosTM55/wiki-research-skill/main/SKILL.md --name wiki-research
 ```
 
-Start a new session and load the skill when needed:
+Start a new session after installation. You usually do not need to run `/skill wiki-research`; use it only for debugging, demos, or when you explicitly want to force-load the skill:
 
 ```text
 /skill wiki-research
@@ -99,15 +101,13 @@ Start a new session and load the skill when needed:
 
 ### Codex / Claude Code / other Agent Skills-compatible tools
 
-Install `SKILL.md` into the relevant global or project-level skills directory. Project-level installation is recommended to avoid over-triggering.
+Install `SKILL.md` into the relevant global or project-level skills directory. Different agents trigger skills differently: some auto-match from the skill description; others may need a project rule such as “during search/research tasks, wiki-research may be used automatically to add wiki-style sources.”
 
 Common project-level layout:
 
 ```text
 .agents/skills/wiki-research/SKILL.md
 ```
-
-Use your agent’s documentation for the exact installation command and directory.
 
 ### Manual install
 
@@ -117,24 +117,24 @@ curl -L https://raw.githubusercontent.com/ghosTM55/wiki-research-skill/main/SKIL
   -o ~/.hermes/skills/research/wiki-research/SKILL.md
 ```
 
-## Prompt examples
+## Usage examples
 
-### Entertainment/IP/lore
+### Normal user requests
 
 ```text
-Use wiki-research to map the wiki-source baseline for this franchise: official wiki, Fandom/community wiki, Wikipedia/Wikidata, major lore pages, canon status, character/faction/timeline structure, and reliability caveats. Do not do full market research yet.
+Research this IP’s worldbuilding, character relationships, and common community classifications.
 ```
 
-### With deep research
-
 ```text
-Before running the deep research skill, use wiki-research as a narrow routing step: identify useful wiki-style sources, entity aliases, relationship graph candidates, and claims that must be verified with current/primary sources.
+Look up this project’s background, core concepts, related organizations, and history.
 ```
 
-### Current-fact limits
+### What the agent should add automatically
 
 ```text
-Use wiki-research only for stable background and entity/lore mapping. For current product status, pricing, policy, market size, revenue, or funding, explicitly switch to current web/official sources.
+If relevant, search Wikipedia, Wikidata, official/project wikis, and Fandom/community wikis.
+Extract useful aliases, entity relationships, lore/canon, timelines, community categories, and reliability notes.
+If not relevant, skip wiki sources.
 ```
 
 ## Repository structure
