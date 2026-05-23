@@ -7,7 +7,7 @@ license: MIT
 metadata:
   hermes:
     tags: [research, wiki, wikipedia, wikidata, fandom, mediawiki, lore, knowledge-graph]
-    related_skills: [deep-research, web-research, obsidian, llm-wiki]
+    related_skills: [deep-research, web-research, ghost-research, obsidian, llm-wiki]
 ---
 
 # Wiki Research
@@ -55,7 +55,7 @@ Do not use this skill as the primary workflow for:
 
 ## Relationship to Existing Research Skills
 
-If another deep research, market research, competitive intelligence, academic research, or KBS-ingest skill is active, do not compete with it and do not require a separate user prompt. Use this skill silently as a small subroutine when useful.
+If another deep research, market research, competitive intelligence, academic research, KBS-ingest skill, or `ghost-research` is active, do not compete with it and do not require a separate user prompt. Use this skill silently as a small subroutine when useful.
 
 Expected behavior:
 
@@ -63,7 +63,7 @@ Expected behavior:
 2. Add those sources to the search only when they are relevant.
 3. Extract names, aliases, entities, timelines, relationships, lore/canon distinctions, related pages, or community categories that improve the answer.
 4. Briefly label source type and reliability when it matters.
-5. Let the main research workflow handle broad search, synthesis, judgment, report structure, and persistence.
+5. Let the main research workflow, such as `ghost-research`, handle broad search, synthesis, judgment, report structure, and persistence.
 
 Avoid:
 

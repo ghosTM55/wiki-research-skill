@@ -137,6 +137,15 @@ Extract useful aliases, entity relationships, lore/canon, timelines, community c
 If not relevant, skip wiki sources.
 ```
 
+## Related skill: ghost-research
+
+[`ghost-research`](https://github.com/ghosTM55/ghost-research-skill) is a horizontal-vertical deep research skill for structured KBS/Obsidian research reports. It pairs with `wiki-research` as follows:
+
+- `wiki-research`: lightweight and automatic; adds wiki-style sources and relationship information during normal search/research when relevant.
+- `ghost-research`: heavier and end-to-end; produces structured deep research using longitudinal history, cross-sectional comparison, synthesis, evidence evaluation, and Markdown output.
+
+Recommended pairing: when a user asks for deep research, `ghost-research` can own the main workflow. If the target involves encyclopedia background, entity relationships, IP/lore/canon, project wikis, or community knowledge, `wiki-research` can quietly add relevant sources and relationship clues in the background.
+
 ## Repository structure
 
 ```text

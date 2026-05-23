@@ -137,6 +137,15 @@ curl -L https://raw.githubusercontent.com/ghosTM55/wiki-research-skill/main/SKIL
 如果不相关，跳过 wiki 来源。
 ```
 
+## 相关 Skill：ghost-research
+
+[`ghost-research`](https://github.com/ghosTM55/ghost-research-skill) 是一个面向深度研究和 KBS/Obsidian 沉淀的横纵分析 Skill。它和 `wiki-research` 的关系是：
+
+- `wiki-research`：轻量、自动，在普通搜索/研究中补充 wiki 类来源和关系信息。
+- `ghost-research`：重型、完整，用横纵分析法产出结构化深度研究报告。
+
+推荐配合方式：当用户发起深度研究时，`ghost-research` 可以作为主流程；如果研究对象涉及百科背景、实体关系、IP/lore/canon、项目 Wiki 或社区知识，`wiki-research` 在后台补充相关来源和关系线索即可。
+
 ## 仓库结构
 
 ```text
