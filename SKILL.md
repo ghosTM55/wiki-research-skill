@@ -3,7 +3,7 @@ name: wiki-research
 description: Use automatically during search or research when wiki-style sources may help with background, entities, aliases, relationships, timelines, lore/canon, worldbuilding, factions, character relationships, IP settings, project knowledge, or community-maintained structure. Trigger for Chinese requests such as 世界观、势力、角色关系、作品设定、IP设定、官方 Wiki、Fandom、Wikidata、社区整理. Add relevant wiki-style sources through whatever search, browser, web, or MCP tools the agent already has; do not require the user to ask for this skill explicitly.
 version: 1.0.0
 author: Thomas Yao / ghosTM55
-license: MIT
+license: PolyForm-Noncommercial-1.0.0
 metadata:
   hermes:
     tags: [research, wiki, wikipedia, wikidata, fandom, mediawiki, lore, knowledge-graph]
