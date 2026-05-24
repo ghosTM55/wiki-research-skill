@@ -4,19 +4,21 @@
 
 为 AI agent 的普通搜索和研究任务补充 wiki 类信息源。安装后，agent 应在相关场景中自动考虑 Wikipedia、Wikidata、官方/项目 Wiki、Fandom/社区 Wiki、MediaWiki 站点等来源，并在不相关时跳过。
 
+> **零依赖，纯策略。** 本 Skill 不提供搜索工具，也不绑定任何特定搜索引擎、MCP server 或外部 API；agent 使用自身已有的搜索、浏览器、web extraction 或 MCP 工具即可。
+
 ## 特性
 
 - 区分 Wikipedia、Wikidata、官方 Wiki、项目 Wiki、Fandom/社区 Wiki 与当前资料的使用边界。
 - 适合娱乐/IP/lore、项目知识、实体关系、时间线、跨语言叙事差异等研究场景。
 - 可嵌入已有 deep research、market research、competitive intelligence、KBS/Obsidian 工作流；不要求用户单独写复杂 prompt。
-- 不绑定任何 MCP server 或外部依赖；可在 Hermes、Codex、Claude Code 等支持 `SKILL.md` 的 agent 中使用。
+- 不绑定特定搜索引擎、MCP server 或外部依赖；可在 Hermes、Codex、Claude Code 等支持 `SKILL.md` 的 agent 中使用。
 
 ## 快速使用
 
 安装后，用户不需要专门说“使用 wiki-research”。正常提出搜索或研究请求即可，例如：
 
 ```text
-帮我研究一下《赛博朋克 2077》的世界观、主要势力和角色关系。
+帮我查一下《赛博朋克 2077》的世界观基础信息、主要势力和角色关系。
 ```
 
 ```text
@@ -25,7 +27,8 @@
 
 Agent 应根据任务自动判断是否需要调用 `wiki-research`：
 
-- 相关时：把 Wikipedia、Wikidata、官方/项目 Wiki、Fandom/社区 Wiki 等来源纳入搜索。
+- 判断时：识别“世界观、势力、角色关系、作品设定、IP设定、官方 Wiki、Fandom、Wikidata、社区整理”等高置信触发词。
+- 相关时：用 agent 已有的搜索/浏览器/MCP 工具，把 Wikipedia、Wikidata、官方/项目 Wiki、Fandom/社区 Wiki 等来源纳入搜索。
 - 有价值时：整理别名、实体关系、作品/角色/组织关系、lore/canon、时间线或社区分类。
 - 输出时：简单标明信息来自官方、百科、社区维护来源，或仍需进一步验证。
 - 不相关时：跳过，不打扰主研究流程。
@@ -52,13 +55,13 @@ Agent 应根据任务自动判断是否需要调用 `wiki-research`：
 
 ## 与已有研究 Skill 配合
 
-`wiki-research` 不是一个需要用户手动启动的完整研究流程。它更像一条自动触发的搜索增强规则：当研究对象适合查 wiki 类资料时，agent 使用它补充来源和关系信息；当问题主要依赖新闻、市场数据、政策、价格、API 或官方文档时，agent 只把 wiki 当背景资料，或直接跳过。
+`wiki-research` 不是一个需要用户手动启动的完整研究流程，也不是搜索执行器。它更像一条自动触发的信息源选择规则：当研究对象适合查 wiki 类资料时，agent 使用它判断哪些 wiki-style sources 值得加入；实际搜索由 agent 已有的搜索、浏览器、web extraction 或 MCP 工具完成。
 
 推荐行为：
 
 ```text
 普通研究/搜索流程继续负责问题拆解、搜索、证据判断、综合分析和输出。
-wiki-research 只在相关时补充 wiki 类来源、别名、实体关系、lore/canon、时间线和可靠性提醒。
+wiki-research 只在相关时判断并补充 wiki 类来源、别名、实体关系、lore/canon、时间线和可靠性提醒。
 ```
 
 ## 来源分层

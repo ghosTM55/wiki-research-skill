@@ -4,19 +4,21 @@
 
 A lightweight wiki-source enhancement skill for normal AI-agent search and research. Once installed, the agent should automatically consider Wikipedia, Wikidata, official/project wikis, Fandom/community wikis, MediaWiki sites, and similar sources when relevant, and skip them when they are not useful.
 
+> **Zero dependencies, strategy-only.** This skill does not bundle search tools, depend on a specific search engine, or require any MCP server or external API. It works with whatever search, browser, web extraction, or MCP tools the agent already has.
+
 ## Features
 
 - Separates the roles of Wikipedia, Wikidata, official wikis, project wikis, Fandom/community wikis, and current sources.
 - Useful for entertainment/IP/lore research, project knowledge, entity relationships, timelines, and cross-language narrative differences.
 - Designed to fit into existing deep research, market research, competitive intelligence, or KBS/Obsidian workflows without requiring users to write complex prompts.
-- No MCP server or external dependency required; usable in Hermes, Codex, Claude Code, and other agents that support `SKILL.md`.
+- No specific search engine, MCP server, or external dependency required; usable in Hermes, Codex, Claude Code, and other agents that support `SKILL.md`.
 
 ## Quick use
 
 After installation, users should not need to say “use wiki-research” in every prompt. They can ask normal research questions, for example:
 
 ```text
-Research the worldbuilding, main factions, and character relationships in Cyberpunk 2077.
+Research the background, worldbuilding, main factions, and character relationships in Cyberpunk 2077.
 ```
 
 ```text
@@ -25,7 +27,8 @@ Look up the background, maintainers, and related projects for this open-source p
 
 The agent should decide automatically whether `wiki-research` is useful:
 
-- If relevant, include Wikipedia, Wikidata, official/project wikis, Fandom/community wikis, and similar sources in the search.
+- While deciding, recognize high-confidence triggers such as worldbuilding, factions, character relationships, IP settings, official wiki, Fandom, Wikidata, community-maintained sources, 世界观、势力、角色关系、作品设定、IP设定、社区整理.
+- If relevant, use the agent’s existing search/browser/MCP tools to include Wikipedia, Wikidata, official/project wikis, Fandom/community wikis, and similar sources in the search.
 - When useful, extract aliases, entity relationships, work/character/organization links, lore/canon, timelines, or community taxonomies.
 - In the answer, briefly label whether information comes from official, encyclopedia, community-maintained, or still-to-be-verified sources.
 - If not relevant, skip the skill and continue with the main research workflow.
@@ -52,13 +55,13 @@ For those tasks, wiki sources are useful for background, terminology, and disamb
 
 ## Working with existing research skills
 
-`wiki-research` is not a full research workflow that users need to start manually. It is an automatic search enhancement rule: when the research target benefits from wiki-style sources, the agent uses it to add sources and relationship information; when the question mainly depends on news, market data, policy, pricing, API behavior, or official documentation, the agent treats wiki sources as background or skips them.
+`wiki-research` is not a full research workflow that users need to start manually, and it is not a search executor. It is an automatic source-selection rule: when the research target benefits from wiki-style sources, the agent uses it to decide which wiki-style sources are worth adding; actual searching is handled by the agent’s existing search, browser, web extraction, or MCP tools.
 
 Recommended behavior:
 
 ```text
 The main research/search workflow still owns decomposition, search, evidence judgment, synthesis, and final output.
-wiki-research only adds wiki-style sources, aliases, entity relationships, lore/canon, timelines, and reliability notes when relevant.
+wiki-research only decides and adds wiki-style sources, aliases, entity relationships, lore/canon, timelines, and reliability notes when relevant.
 ```
 
 ## Source layers

@@ -1,6 +1,6 @@
 ---
 name: wiki-research
-description: Use automatically during search or research when wiki-style sources may help with background, entities, aliases, relationships, timelines, lore/canon, project knowledge, or community-maintained structure. Add relevant Wikipedia, Wikidata, official/project wiki, Fandom/community wiki, or MediaWiki-style sources without requiring the user to ask for this skill explicitly.
+description: Use automatically during search or research when wiki-style sources may help with background, entities, aliases, relationships, timelines, lore/canon, worldbuilding, factions, character relationships, IP settings, project knowledge, or community-maintained structure. Trigger for Chinese requests such as 世界观、势力、角色关系、作品设定、IP设定、官方 Wiki、Fandom、Wikidata、社区整理. Add relevant wiki-style sources through whatever search, browser, web, or MCP tools the agent already has; do not require the user to ask for this skill explicitly.
 version: 1.0.0
 author: Thomas Yao / ghosTM55
 license: MIT
@@ -13,6 +13,12 @@ metadata:
 # Wiki Research
 
 Use this skill as an automatic enhancement to normal search and research. The user should not need to ask for `wiki-research` explicitly. When a task may benefit from wiki-style sources, add the right Wikipedia, Wikidata, official/project wiki, Fandom/community wiki, or MediaWiki-like sources; when wiki sources are not useful, skip them.
+
+## Role and Boundaries
+
+- **Source-routing strategy, not search executor.** This skill decides which wiki-style sources are worth adding; it does not provide search tools, APIs, or MCP servers. Use whatever search, browser, web extraction, or MCP tools are already available.
+- **Search enhancement, not full research workflow.** Keep the main research/search skill or agent workflow responsible for decomposition, evidence judgment, synthesis, and final output.
+- **Portable across agents and users.** Do not assume a specific search backend. The same strategy should work with built-in web search, browser search, Brave/Bing/Google/DuckDuckGo-style search, project docs, or configured MCP tools.
 
 ## Core Principle
 
@@ -32,7 +38,8 @@ Do not treat any wiki as automatically authoritative. Use wiki sources as backgr
 Use `wiki-research` when the user asks about:
 
 - background or history of a concept, person, organization, work, franchise, technology, project, place, or event;
-- entertainment/IP research: lore, canon, characters, worldbuilding, episodes, quests, factions, timelines, relationships, fan terminology;
+- entertainment/IP research: lore, canon, characters, worldbuilding, factions, character relationships, IP settings, episodes, quests, timelines, fan terminology, community classifications;
+- Chinese-language research prompts involving 世界观、势力、角色关系、作品设定、IP设定、官方 Wiki、Fandom、Wikidata、社区整理、设定集、正史、剧情线, even when the user does not mention wiki sources;
 - whether a topic has a dedicated wiki, official knowledge base, fan wiki, project wiki, or structured public knowledge graph;
 - entity relationships, timelines, knowledge graphs, taxonomies, or cross-language/wiki narrative differences;
 - research planning where wiki pages can reveal related concepts, names, alternate titles, aliases, and source trails.
@@ -42,6 +49,23 @@ Do not use this skill as the primary workflow for:
 - current news, market prices, funding, policy changes, product availability, API behavior, or legal/regulatory updates;
 - tasks where official documentation, primary sources, filings, papers, or current market reports are clearly required;
 - broad deep research when the user already has a dedicated deep research skill activated. In that case, use this skill only as a quiet background helper.
+
+## Trigger Reliability
+
+This skill should trigger when the user asks for information that matches wiki-source strengths, even if they never say “wiki,” “Wikipedia,” or “Fandom.”
+
+High-confidence triggers:
+
+- known franchises, games, anime, novels, films, series, fictional universes, open-source projects, protocols, or domain communities;
+- requests for background, history, timeline, related entities, aliases, taxonomy, or “what is X”;
+- requests for relationships, factions, characters, worldbuilding, lore, canon, settings, or community classifications;
+- Chinese prompts containing 世界观、势力、角色关系、作品设定、IP设定、官方 Wiki、社区 Wiki、Fandom、Wikidata、社区整理、设定集、正史、剧情线.
+
+Low-confidence or skip:
+
+- current prices, funding, market size, breaking news, API behavior, law/policy changes, or time-sensitive product status;
+- opinion/advice-only questions where background source routing would not improve the answer;
+- active deep-research workflows where wiki sources do not clearly add entity/background value.
 
 ## Source Types and Their Roles
 
@@ -75,6 +99,8 @@ Avoid:
 
 ## Workflow
 
+This workflow chooses source layers; it does not choose or require a specific search backend. Use the agent’s available search, browser, web extraction, documentation, or MCP tools to fetch the actual pages.
+
 ### 1. Decide whether wiki sources are useful
 
 During normal search/research, quickly decide whether the target involves:
@@ -98,7 +124,11 @@ Use this order as a default, adjusting for the domain:
 - Entertainment/IP/lore: official wiki or canonical source first if available; then Fandom/community wiki for long-tail detail; Wikipedia for external public context.
 - Niche community/domain: search for dedicated wikis, MediaWiki sites, wiki.gg, Miraheze, Fandom, project docs, and subreddit/community-maintained knowledge bases.
 
-### 3. Gather useful wiki evidence
+### 3. Gather useful wiki evidence with available tools
+
+Search deliberately with source-specific terms such as `<topic> Wikipedia`, `<topic> Wikidata`, `<topic> official wiki`, `<topic> Fandom`, `<topic> wiki.gg`, `<topic> MediaWiki`, or the equivalent in the user’s language. Use whatever search/browser/MCP tools are available; do not assume one provider.
+
+If a topic seems likely to have a wiki but none is found, briefly note the absence only if useful, then continue with the main research workflow. Do not stall or ask for clarification just because a wiki source is missing.
 
 For each useful source, capture:
 
@@ -149,8 +179,9 @@ Treat Wikidata results as structured claims. Check qualifiers, dates, ranks, and
 2. **Treating Fandom as official canon.** Community wiki pages are useful but must be labeled as community-maintained unless backed by official/canonical sources.
 3. **Ignoring official wikis.** For games, software, protocols, and creator platforms, official docs or official wikis usually outrank Wikipedia.
 4. **Forgetting Wikidata qualifiers.** Wikidata claims can have dates, scope, ranks, and references. Avoid flattening nuanced claims into timeless facts.
-5. **Competing with a deep research skill.** This skill should quietly enhance search with wiki-style sources, not duplicate the main research workflow.
-6. **Missing cross-language differences.** For culturally sensitive or region-specific topics, compare language editions or community wikis when narrative framing matters.
+5. **Binding the skill to one search tool.** This skill should work with any available search, browser, web extraction, or MCP tool. Do not make a public skill depend on one user’s preferred search backend.
+6. **Competing with a deep research skill.** This skill should quietly enhance search with wiki-style sources, not duplicate the main research workflow.
+7. **Missing cross-language differences.** For culturally sensitive or region-specific topics, compare language editions or community wikis when narrative framing matters.
 
 ## Verification Checklist
 
