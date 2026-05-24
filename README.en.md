@@ -163,6 +163,6 @@ wiki-research-skill/
 ## License
 
 This project is source-available for non-commercial use under the
-PolyForm Noncommercial License 1.0.0.
+[PolyForm Noncommercial License 1.0.0](./LICENSE).
 
 Commercial use is not permitted without separate written permission.

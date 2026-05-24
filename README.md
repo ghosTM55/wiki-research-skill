@@ -162,6 +162,6 @@ wiki-research-skill/
 
 ## License
 
-本项目以 PolyForm Noncommercial License 1.0.0 授权，仅允许非商业用途使用。
+本项目以 [PolyForm Noncommercial License 1.0.0](./LICENSE) 授权，仅允许非商业用途使用。
 
 未经作者另行书面许可，不得用于商业用途。
